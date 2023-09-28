@@ -1,0 +1,32 @@
+version: '3'
+services:
+  web:
+    build:
+      context: nginx
+    ports:
+      - "80:80"
+
+    env_file:
+      - .env.dev
+
+    networks:
+      - app-network
+
+    depends_on:
+      - flask_app
+
+  flask_app:
+    build:
+      context: flask
+    ports:
+      - "100:80"
+      - "14000-14100:14000-14100"
+    networks:
+      - app-network
+
+    env_file:
+      - .env.dev
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask App</title>
+</head>
+<body>
+    <form method="POST">
+        <input type="submit" name="Spawn app 1" value="1">
+        <input type="submit" name="Spawn app 2" value="2">
+    </form>
+    {% for session_id in session_ids %}
+        <form action="/show/{{ session_id }}" method="post">
+            <input type="submit" value="Show Session {{ session_id }}">
+        </form>
+    {% endfor %}
+    <iframe src="{{ url }}?embedded=true" width="100%" height="800px"></iframe>
+
+       <!-- List of buttons -->
+    {% for session_id in session_ids %}
+        <form action="/delete/{{ session_id }}" method="post">
+            <input type="submit" value="Delete Session {{ session_id }}">
+        </form>
+    {% endfor %}
+</body>
+</html>
