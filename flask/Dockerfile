@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y \
     software-properties-common \
     git \
     docker \
+    nginx \
+    gettext-base \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -16,10 +18,12 @@ RUN pip3 install -r requirements.txt
 
 # Copy the app
 COPY . /app/
+RUN chmod +x /app/entrypoint.sh
 
 EXPOSE 14000-14100
+EXPOSE 5000
 EXPOSE 80
 
 
-# Run the app
-CMD ["gunicorn", "--access-logfile", "-", "--error-logfile", "-", "app:app", "--bind", "0.0.0.0:80"]
+ENTRYPOINT [ "/app/entrypoint.sh" ]
+CMD []
